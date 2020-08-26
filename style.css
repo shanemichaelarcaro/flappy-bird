@@ -1,8 +1,96 @@
+@font-face {
+  font-family: '04b_19regular';
+  src: url('04b_19__-webfont.woff2') format('woff2'),
+       url('04b_19__-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 html, body {
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 
-canvas {
-  display: block;
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+
+  background: #cccccc;
 }
+
+
+canvas {
+  border: 1px solid black;
+  display: none;
+}
+
+button {
+  display: inline-block;
+  border-radius: 0;
+  background: #df6119;
+  color: white;
+  font-family: '04b_19regular', serif;
+  text-transform: uppercase;
+  padding: 6px 20px;
+  box-shadow: 0 0 0 5px #df6119 inset 0 0 0 5px #fff;
+  letter-spacing: 2px;
+}
+
+img {
+  margin: 0;
+}
+
+h1 {
+  font-family: '04b_19regular', serif;
+  color: white;
+  letter-spacing: 2px;
+  -webkit-text-stroke: 2px black;
+  position: absolute;
+  margin-top: -30rem;
+}
+
+.buttons {
+  width: 10rem;
+  height: 8rem;
+  position: absolute;
+  margin-top: 17rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.rectangle {
+  display: absolute;
+  background: blue;
+  position: aboslute;
+  z-index: 0;
+  width: 100%;
+}
+
+.background {
+  display: flex;
+  flex-direction: column;
+}
+
+.hiding-container {
+  background: red;
+  position: absolute;
+  width: 20rem;
+  height: 39rem;
+}
+
+.hiding-container1 {
+  margin: 0 41rem 0 0;
+}
+
+.hiding-container2 {
+  margin: 0 0 0 41rem;
+}
+
+
