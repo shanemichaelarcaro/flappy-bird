@@ -13,19 +13,22 @@
   </head>
 
   <body>
-    <div class="hiding-container hiding-container1"></div>
-    <h1>Flappy Bird</h1>
-    <div class="background">
-      <img src="/assets/background-day.png" alt="flappy-background">
-      <div class="base">
-        <img id='base-image' src="/assets/base.png" alt="flappy-base">
+    <!-- <div class="menu"> -->
+      <div class="hiding-container hiding-container1 menu-screen"></div>
+      <h1 class="menu-screen">Flappy Bird</h1>
+      <img class="bird menu-screen" src="/assets/yellowbird-midflap.png" alt="flappy-bird">
+      <div class="background">
+        <img class="menu-screen" src="/assets/background-day.png" alt="flappy-background">
+        <div class="base">
+          <img class="menu-screen" id='base-image' src="/assets/base.png" alt="flappy-base">
+        </div>
       </div>
-      
-    </div>
+    <!-- </div> -->
+  
     
-    <div class="buttons">
-      <button class="">Start</button>
-      <button class="">About</button> 
+    <div class="buttons" id="menu-buttons">
+      <button class="menu-screen" onclick="startGame()">Start</button>
+      <button class="menu-screen">About</button> 
     </div>
     <div class="hiding-container hiding-container2"></div>
     <script src="main.js"></script>
