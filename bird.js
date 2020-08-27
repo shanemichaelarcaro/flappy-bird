@@ -15,6 +15,12 @@ class Bird {
         this.initialVelocity = 0.3;
 
         this.playing = false;
+
+        console.log('X:', this.x);
+        console.log('Y:', this.y);
+        console.log('Width:', this.width);
+        console.log('Height:', this.height);
+        console.log('Center:', this.x + this.width / 2, this.y + this.height / 2);
     }
 
     animate() {
@@ -25,25 +31,30 @@ class Bird {
     }
 
     rotateRender() {
-        radians = PI * 180 / this.angle;
-
+        ellipse(width / 2 - 3, height / 2 - 3, 6, 6);
         imageMode(CENTER);
-        translate(this.width / 2, this.height / 2);
-        image(this.images[this.index], this.x, this.y, this.width, this.height);
-
+        translate(this.x + this.width / 2, this.y + this.height / 2);
+        angleMode(DEGREES);
+        rotate(this.angle);
+        image(this.images[this.index], 0, 0, this.width, this.height);
     }
 
-    addGravity() {
-        this.time += 1;
-        this.velocity = this.gravity * this.time + this.initialVelocity;
-    }
 
     update() {
-        this.addGravity();
+        if (this.time < 17)
+            this.time += 1;
+        this.velocity = this.gravity * this.time + this.initialVelocity;
         this.y += this.velocity;
+
+        this.calculateAngle();
     }
 
     jump() {
-        this.time = -15;
+        this.time = -17;
+    }
+
+    calculateAngle() {
+        const normalizedData = this.time / -17;
+        this.angle = normalizedData * -45;
     }
 }
