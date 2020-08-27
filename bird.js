@@ -17,6 +17,9 @@ class Bird {
 
         this.playing = false;
         this.bounds = new Bounds(this.x, this.y, this.width, this.height);
+
+        console.log("Y", this.y);
+        console.log();
     }
 
     animate() {
@@ -29,12 +32,16 @@ class Bird {
             this.index = 0;
     }
 
-    rotateRender() {
+    rotateRender() { 
+        rect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
+        push();
         imageMode(CENTER);
         translate(this.x + this.width / 2, this.y + this.height / 2);
         angleMode(DEGREES);
         rotate(this.angle);
         image(this.images[this.index], 0, 0, this.width, this.height);
+        pop();
+        
     }
 
     update() {
@@ -42,6 +49,9 @@ class Bird {
             this.time += 1;
         this.velocity = this.gravity * this.time + this.initialVelocity;
         this.y += this.velocity;
+        
+        this.bounds.y = this.y;
+        this.bounds.update();
 
         this.calculateAngle();
         this.animate();

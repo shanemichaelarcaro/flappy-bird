@@ -1,10 +1,12 @@
 let playable = false;
 let images = {};
 let bird;
+let testPipe;
 
 function setup() {
   createCanvas(312, 624);
   bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, [images.downflap, images.midflap, images.upflap]);
+  testPipe = new Pipe(125, 400, images.downpipe);
 }
 
 function draw() {
@@ -15,14 +17,16 @@ function draw() {
   imageMode(CORNER);
   image(images.background, 0, 0, width);
   image(images.base, 0, height - 112);
+  testPipe.render();
   bird.rotateRender();
   if (bird.playing) {
     bird.update();
   }
-}
+  
 
-function update() {
-  console.log('HELLO!');
+  console.log(bird.bounds.intersects(testPipe.bounds));
+  // console.log(bird.bounds.y);
+
 }
 
 function preload() {
