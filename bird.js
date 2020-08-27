@@ -13,32 +13,29 @@ class Bird {
         this.gravity = 0.4;
         this.time = 0;
         this.initialVelocity = 0.3;
+        this.tick = 0;
 
         this.playing = false;
-
-        console.log('X:', this.x);
-        console.log('Y:', this.y);
-        console.log('Width:', this.width);
-        console.log('Height:', this.height);
-        console.log('Center:', this.x + this.width / 2, this.y + this.height / 2);
+        this.bounds = new Bounds(this.x, this.y, this.width, this.height);
     }
 
     animate() {
-        if (this.index == images.length)
-            this.index = 0;
-        else
+        if (this.tick % 10 != 0)
+            return;
+        this.tick = 0;
+        if (this.index < this.images.length - 1) 
             this.index += 1;
+        else
+            this.index = 0;
     }
 
     rotateRender() {
-        ellipse(width / 2 - 3, height / 2 - 3, 6, 6);
         imageMode(CENTER);
         translate(this.x + this.width / 2, this.y + this.height / 2);
         angleMode(DEGREES);
         rotate(this.angle);
         image(this.images[this.index], 0, 0, this.width, this.height);
     }
-
 
     update() {
         if (this.time < 17)
@@ -47,6 +44,8 @@ class Bird {
         this.y += this.velocity;
 
         this.calculateAngle();
+        this.animate();
+        this.tick += 1;
     }
 
     jump() {
@@ -56,5 +55,9 @@ class Bird {
     calculateAngle() {
         const normalizedData = this.time / -17;
         this.angle = normalizedData * -45;
+    }
+
+    getBoundaires() {
+        
     }
 }
