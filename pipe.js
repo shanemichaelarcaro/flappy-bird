@@ -9,7 +9,13 @@ class Pipe {
         this.bounds = new Bounds(this.x, this.y, this.width, this.height);
     }
 
+    update(x, y) {
+        this.bounds.x = x;
+        this.bounds.y = y;
+    }
+
     render() {
+        // rect(this.x, this.y, this.width, this.height);
         image(this.image, this.x, this.y, this.width, this.height);
     }
 }

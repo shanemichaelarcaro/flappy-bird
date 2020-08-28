@@ -43,6 +43,7 @@ class Bird {
     update() {
         if (this.time < 17)
             this.time += 1;
+            
         this.velocity = this.gravity * this.time + this.initialVelocity;
         this.y += this.velocity;
 

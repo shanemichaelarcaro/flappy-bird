@@ -1,7 +1,6 @@
 let playable = false;
 let images = {};
 let bird;
-let testPipe;
 let pipeManager;
 let tick = 0;
 
@@ -25,7 +24,7 @@ function draw() {
 
   if (bird.playing) {
     bird.update();
-    pipeManager.update();
+    pipeManager.update(bird);
     if (pipeManager.pipes.length < 6) {
       tick += 1;
       if (tick % 60 == 0) {
