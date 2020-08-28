@@ -30,21 +30,24 @@ function draw() {
   imageMode(CORNER);
   image(images.background, 0, 0, width);
   
-  if (bird.playing && !bird.gameOver) {
+  if (bird.playing) {
     bird.update();
-    pipeManager.update(bird);
 
-    if (pipeManager.pipes.length < 6) {
-      tick += 1;
-      if (tick % 60 == 0) {
-        pipeManager.addPipes();
-        tick = 0;
+    if (!bird.gameOver) {
+      pipeManager.update(bird);
+
+      if (pipeManager.pipes.length < 6) {
+        tick += 1;
+        if (tick % 60 == 0) {
+          pipeManager.addPipes();
+          tick = 0;
+        }
       }
     }
   }
   pipeManager.render();
   bird.rotateRender();
-  
+
   image(images.base, 0, height - 112);
   stroke(255);
   text(frameRate().toString().substring(0, 2), 10, 20);
@@ -107,7 +110,8 @@ function hideMainElements(display) {
  */
 function keyPressed() {
   if (keyCode === 32) {
-    bird.jump();
+    if (!bird.gameOver)
+      bird.jump();
     bird.playing = true;
   }
 }

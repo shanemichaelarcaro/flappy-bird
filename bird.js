@@ -62,27 +62,22 @@ class Bird {
             this.time += 1;
             
         this.velocity = this.gravity * this.time + this.initialVelocity;
-        this.y += this.velocity;
-        this.bounds.y = this.y;
 
-        if (!this.gameOver) {
-            this.calculateAngle();
-            this.animate();
-        }
+        if (this.y < 515 - this.height) 
+            this.y += this.velocity;
+
+        this.bounds.y = this.y;
+        this.calculateAngle();
+        this.checkBoundaries();
         this.tick += 1;
 
-        this.checkBoundaries();
+        if (!this.gameOver)
+            this.animate();
     }
 
     checkBoundaries() {
-        if (this.y < 0 || this.y > 515 - this.height) {
+        if (this.y < 0 || this.y > 515 - this.height) 
             this.gameOver = true;
-            this.angle = 90;
-            console.log("YES", this.angle);
-
-            this.rotateRender();
-            redraw();
-        }
     }
 
     /**
@@ -96,17 +91,18 @@ class Bird {
 
     /**
      * Calculates the angle the bird should be pointing at by normalizing
-     * the time between -1 and 1. This allows for the normalized value to be
-     * multiplied by an offset (-45) and create a bounded angle rotation,
-     * in this case [-45, +45].
+     * the time variable. Data normalization occurs between [-1, 1] when the game
+     * is alive (gameOver is false) or [0, 1] when the game is dead (gameOver is true).
+     * 
+     * This allows for the angles of the bird to have ranges of [-45, 45] and [-45, 90]
+     * respectively. 
+     * 
+     * This change allows the bird to be limited while playing but also reach 90 degrees
+     * (straight down) while dead. Allowing the bird to reach this angle when alive
+     * makes the bird animation look pretty bad, hence why it is limited.
      */
     calculateAngle() {
-        const normalizedData = this.gameOver ? ((this.time / -this.terminalVelocity) / 2) + 0.5 : 
-                                                 this.time / -this.terminalVelocity;
+        const normalizedData = this.gameOver ? ((this.time / -this.terminalVelocity) / 2) + 0.5 : this.time / -this.terminalVelocity;
         this.angle = this.gameOver ? normalizedData * -135 + 90 : normalizedData * -45;
-        console.log('Normal Data:', normalizedData);
-        // this.angle = normalizedData * -135 + 90;
-
-        console.log('Angle:', this.angle);
     }
 }
