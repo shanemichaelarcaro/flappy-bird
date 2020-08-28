@@ -62,8 +62,4 @@ class Bird {
         const normalizedData = this.time / -17;
         this.angle = normalizedData * -45;
     }
-
-    getBoundaires() {
-        
-    }
 }

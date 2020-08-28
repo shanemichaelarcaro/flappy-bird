@@ -14,13 +14,14 @@ class PipeManager {
 
         this.pipes.push(new Pipe(400, y - 370, this.image1));
         this.pipes.push(new Pipe(400, y + 50, this.image2));
+        console.log(this.pipes);
     }
 
     update() {
-        for (let i = this.pipes.length - 1; i > 0; i--) {
+        for (let i = this.pipes.length - 1; i >= 0; i--) {
             this.pipes[i].x -= 3;
             if (this.pipes[i].x < -50) {
-                this.pipes.splice(i, 1);
+                this.pipes[i].x = 500;
             }
         }
     }

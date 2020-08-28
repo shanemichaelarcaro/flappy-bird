@@ -9,7 +9,6 @@ function setup() {
   createCanvas(312, 624);
   bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, [images.downflap, images.midflap, images.upflap]);
   pipeManager = new PipeManager(images.uppipe, images.downpipe);
-
   frameRate(60);
 }
 
@@ -27,16 +26,15 @@ function draw() {
   if (bird.playing) {
     bird.update();
     pipeManager.update();
+    if (pipeManager.pipes.length < 6) {
+      tick += 1;
+      if (tick % 60 == 0) {
+        pipeManager.addPipes();
+        tick = 0;
+      }
   }
-
-  tick += 1;
-  if (tick % 60 == 0) {
-    pipeManager.addPipes();
-    tick = 0;
+    pipeManager.render();
   }
-
-  pipeManager.render();
-
   image(images.base, 0, height - 112);
 
 }
