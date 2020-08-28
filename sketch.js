@@ -7,11 +7,13 @@ let tick = 0;
 /**
  * Used to create the game board and set initial values.
  */
+p5.disableFriendlyErrors = true;
 function setup() {
   createCanvas(312, 624);
   bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, 
   [images.downflap, images.midflap, images.upflap]);
   pipeManager = new PipeManager(images.uppipe, images.downpipe);
+  // Limiting frame rate to 60 fps (about)
   frameRate(60);
 }
 
@@ -32,7 +34,7 @@ function draw() {
 
   if (bird.playing) {
     bird.update();
-    pipeManager.update(bird);
+    pipeManager.update(bird.bounds);
     if (pipeManager.pipes.length < 6) {
       tick += 1;
       if (tick % 60 == 0) {
@@ -43,7 +45,8 @@ function draw() {
     pipeManager.render();
   }
   image(images.base, 0, height - 112);
-
+  stroke(255);
+  text(frameRate().toString().substring(0, 2), 10, 20);
 }
 
 /**
@@ -95,4 +98,3 @@ function keyPressed() {
     bird.playing = true;
   }
 }
-

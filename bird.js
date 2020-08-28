@@ -39,6 +39,9 @@ class Bird {
      * place are relative to this function alone and do not interfere with the outside.
      */
     rotateRender() { 
+        noFill();
+        stroke(0);
+        rect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
         push();
         imageMode(CENTER);
         translate(this.x + this.width / 2, this.y + this.height / 2);
