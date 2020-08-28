@@ -10,6 +10,7 @@ class PipeManager {
         this.lowerPush = 50;
         this.score = 0;
         this.highscore = 0;
+        this.newHighscore = false;
 
         this.randomValues = [];
         for (let i = 0; i < 200; i++)
@@ -58,8 +59,10 @@ class PipeManager {
             this.pipes[i].x -= 3;
             if (this.pipes[i].x >= 155 && this.pipes[i].x < 158) {
                 this.score += 1;
-                if (this.score > this.highscore)
+                if (this.score > this.highscore) {
                     this.highscore = this.score;
+                    this.newHighscore = true;
+                }
             }
             
             if (this.pipes[i].x < -50) {

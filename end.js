@@ -1,10 +1,14 @@
 class End {
     constructor(images) {
         this.images = images;
-        this.x = 38;
+        this.x = -97;
         this.y = 220;
     }
 
+    /**
+     * Renders the end screen
+     * @param {integer} score bird score
+     */
     render(score) {
         let medal;
         if (score >= 40)
@@ -25,15 +29,18 @@ class End {
         strokeWeight(5);
         textSize(20);
         const fontWidth = textWidth(score);
-        text(score, width - 85 - fontWidth / 2, 270);
+        text(score, this.x + 178 + fontWidth / 2, 270);
         pop();
 
         if (medal != undefined)
             image(this.images[medal], this.x + 25, this.y + 40, 44, 44);
     }
 
+    /**
+     * Used to animate the end screen
+     */
     update() {
-        if (this.x < 400)
-            this.x += 1;
+        if (this.x < 38)
+            this.x += 5;
     }
 }

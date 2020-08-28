@@ -62,7 +62,9 @@ function draw() {
   }
   else {
     end.render(pipeManager.score / 2);
+    end.update();
 
+    // Only run this code when button is undefined (runs it once)
     if (resetButton == undefined) {
       resetButton = createImg('assets/start.png');
       resetButton.position(495, 500);
@@ -70,7 +72,11 @@ function draw() {
       resetButton.mousePressed(resetGame);
     }
     const fontWeight = textWidth(pipeManager.highscore / 2);
-    renderText(pipeManager.highscore / 2, width - 87 - fontWeight / 2, 310, 20, 5);
+    renderText(pipeManager.highscore / 2, end.x + 179 + fontWeight / 2, 310, 20, 5);
+
+    // If new highscore is detected render new
+    if (pipeManager.newHighscore)
+      image(images.new, end.x + 140, 295, 32, 14);
   }
 }
 
@@ -100,6 +106,14 @@ function preload() {
   font = loadFont('04B_19__.TTF');
 }
 
+/**
+ * 
+ * @param {String} string text to be renderd 
+ * @param {integer} x the x location of the text
+ * @param {integer} y the y location of the text
+ * @param {integer} size the size of the text
+ * @param {integer} weight the stroke weight of the text
+ */
 function renderText(string, x, y, size, weight) {
   push();
   textFont(font);
@@ -119,6 +133,9 @@ function startGame() {
   hideMainElements(true);
 }
 
+/**
+ * Resets the game
+ */
 function resetGame() {
   bird.x = (width - images.downflap.width) / 2;
   bird.y = (height - images.downflap.height) / 2;
@@ -126,10 +143,12 @@ function resetGame() {
   bird.gameOver = false;
   bird.playing = false;
   bird.angle = 0;
+  end.x = -97;
   resetButton.remove();
   resetButton = undefined;
   pipeManager.score = 0;
   pipeManager.pipes.splice(0, pipeManager.pipes.length);
+  pipeManager.newHighscore = false;
 }
 
 /**
