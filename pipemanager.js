@@ -8,6 +8,7 @@ class PipeManager {
 
         this.upperPush = -370;
         this.lowerPush = 50;
+        this.score = 0;
 
         this.randomValues = [];
         for (let i = 0; i < 200; i++)
@@ -54,6 +55,8 @@ class PipeManager {
     update(bounds) {
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             this.pipes[i].x -= 3;
+            if (this.pipes[i].x >= 155 && this.pipes[i].x < 158)
+                this.score += 1;
             
             if (this.pipes[i].x < -50) {
                 this.pipes[i].x = 500;
@@ -64,7 +67,9 @@ class PipeManager {
                 }
             }
             this.pipes[i].update(this.pipes[i].x, this.pipes[i].y);
-            console.log(this.pipes[i].bounds.intersects(bounds));
+
+            // Pipe Collision detection
+            // console.log(this.pipes[i].bounds.intersects(bounds));
         }
     }
 

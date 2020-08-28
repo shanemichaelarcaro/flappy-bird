@@ -1,5 +1,6 @@
 let playable = false;
 let images = {};
+let font;
 let bird;
 let pipeManager;
 let tick = 0;
@@ -47,10 +48,20 @@ function draw() {
   image(images.base, 0, height - 112);
   stroke(255);
   text(frameRate().toString().substring(0, 2), 10, 20);
+
+  push();
+  textFont(font);
+  fill(255);
+  stroke(0);
+  strokeWeight(5);
+  textSize(30);
+  let fontWidth = textWidth(pipeManager.score / 2);
+  text(pipeManager.score / 2, (width - fontWidth) / 2, 100);
+  pop();
 }
 
 /**
- * Preloads images into the game
+ * Preloads images and fonts into the game
  */
 function preload() {
   images.background = loadImage('assets/background.png');
@@ -60,6 +71,8 @@ function preload() {
   images.upflap = loadImage('assets/upflap.png');
   images.downpipe = loadImage('assets/downpipe.png');
   images.uppipe = loadImage('assets/uppipe.png');
+
+  font = loadFont('04B_19__.TTF');
 }
 
 /**
