@@ -8,6 +8,10 @@ class PipeManager {
 
         this.upperPush = -370;
         this.lowerPush = 50;
+
+        this.randomValues = [];
+        for (let i = 0; i < 200; i++)
+            this.randomValues.push(this.calculatePositions());
     }
 
     randomY() {
@@ -35,9 +39,11 @@ class PipeManager {
             if (this.pipes[i].x < -50) {
                 this.pipes[i].x = 500;
                 if (i % 2 == 0) {
-                    const values = this.calculatePositions();
-                    this.pipes[i].y = values[0];
-                    this.pipes[i + 1].y = values[1];
+                    const value = parseInt(random(this.randomValues.length), 10);
+                    this.pipes[i].y = this.randomValues[value][0];
+                    this.pipes[i + 1].y = this.randomValues[value][1];
+                    // this.pipes[i].y = values[0];
+                    // this.pipes[i + 1].y = values[1];
                 }
             }
             this.pipes[i].update();
