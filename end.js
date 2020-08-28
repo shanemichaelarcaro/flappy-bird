@@ -1,8 +1,8 @@
 class End {
     constructor(images) {
         this.images = images;
-        this.x = 50;
-        this.y = 240;
+        this.x = 38;
+        this.y = 220;
     }
 
     render(score) {
@@ -15,7 +15,6 @@ class End {
             medal = 1;
         else if (score >= 10)
             medal = 0;
-        medal = 0;
 
         image(this.images[5], this.x, this.y, 226, 114);
 
@@ -26,7 +25,7 @@ class End {
         strokeWeight(5);
         textSize(20);
         const fontWidth = textWidth(score);
-        text(score, width - 80 - fontWidth / 2, 290);
+        text(score, width - 85 - fontWidth / 2, 270);
         pop();
 
         if (medal != undefined)

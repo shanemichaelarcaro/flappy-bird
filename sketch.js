@@ -5,6 +5,8 @@ let bird;
 let pipeManager;
 let end;
 let tick = 0;
+let resetButton;
+let menu = false;
 
 /**
  * Used to create the game board and set initial values.
@@ -55,18 +57,20 @@ function draw() {
   text(frameRate().toString().substring(0, 2), 10, 20);
 
   if (!bird.gameOver) {
-    push();
-    textFont(font);
-    fill(255);
-    stroke(0);
-    strokeWeight(5);
-    textSize(30);
-    const fontWidth = textWidth(pipeManager.score / 2);
-    text(pipeManager.score / 2, (width - fontWidth) / 2, 100);
-    pop();
+    const fontWeight = textWidth(pipeManager.score / 2);
+    renderText(pipeManager.score / 2, (width - fontWeight) / 2, 100, 30, 5);
   }
   else {
     end.render(pipeManager.score / 2);
+
+    if (resetButton == undefined) {
+      resetButton = createImg('assets/start.png');
+      resetButton.position(495, 500);
+      resetButton.size(100, 100);
+      resetButton.mousePressed(resetGame);
+    }
+    const fontWeight = textWidth(pipeManager.highscore / 2);
+    renderText(pipeManager.highscore / 2, width - 87 - fontWeight / 2, 310, 20, 5);
   }
 }
 
@@ -83,16 +87,28 @@ function preload() {
   images.uppipe = loadImage('assets/uppipe.png');
 
 
-  images.bronze = loadImage('/assets/bronze.png');
-  images.silver = loadImage('/assets/silver.png');
-  images.gold = loadImage('/assets/gold.png');
-  images.platinum = loadImage('/assets/platinum.png');
-  images.over = loadImage('/assets/over.png');
-  images.board = loadImage('/assets/board.png');
-  images.new = loadImage('/assets/new.png');
+  images.bronze = loadImage('assets/bronze.png');
+  images.silver = loadImage('assets/silver.png');
+  images.gold = loadImage('assets/gold.png');
+  images.platinum = loadImage('assets/platinum.png');
+  images.over = loadImage('assets/over.png');
+  images.board = loadImage('assets/board.png');
+  images.new = loadImage('assets/new.png');
+  images.start = loadImage('assets/start.png');
 
 
   font = loadFont('04B_19__.TTF');
+}
+
+function renderText(string, x, y, size, weight) {
+  push();
+  textFont(font);
+  fill(255);
+  stroke(0);
+  strokeWeight(weight);
+  textSize(size);
+  text(string, x, y);
+  pop();
 }
 
 /**
@@ -100,8 +116,20 @@ function preload() {
  */
 function startGame() {
   playable = true;
-
   hideMainElements(true);
+}
+
+function resetGame() {
+  bird.x = (width - images.downflap.width) / 2;
+  bird.y = (height - images.downflap.height) / 2;
+  bird.time = 0;
+  bird.gameOver = false;
+  bird.playing = false;
+  bird.angle = 0;
+  resetButton.remove();
+  resetButton = undefined;
+  pipeManager.score = 0;
+  pipeManager.pipes.splice(0, pipeManager.pipes.length);
 }
 
 /**
@@ -120,6 +148,7 @@ function hideMainElements(display) {
     menuItems[i].style.display = normalDisplay;
 
   canvas.style.display = oppositeDisplay;
+  menu = true;
 }
 
 /**
@@ -127,8 +156,11 @@ function hideMainElements(display) {
  */
 function keyPressed() {
   if (keyCode === 32) {
-    if (!bird.gameOver)
-      bird.jump();
+    if (menu) {
+      if (!bird.gameOver)
+        bird.jump();
     bird.playing = true;
   }
+    }
+    
 }
