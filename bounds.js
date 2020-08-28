@@ -21,6 +21,9 @@ class Bounds {
              new Point(this.x, this.y + this.height), new Point(this.x + this.width, this.y + this.height)];
     }
 
+    /**
+     * Updates all the points of bounds for collision detection.
+     */
     update() {
         this.points[0].setPoints(this.x, this.y);
         this.points[1].setPoints(this.x + this.width, this.y);
@@ -29,6 +32,11 @@ class Bounds {
         
     }
 
+    /**
+     * Check whether to classes that have bounds intersect one another. This is done by using eight points
+     * and comparing the corner positions' x and y values.
+     * @param {bounds} other used for collision detection
+     */
     intersects(other) {
         const p1 = this.points[0];
         const p2 = this.points[1];

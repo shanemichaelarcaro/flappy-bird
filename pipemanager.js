@@ -14,18 +14,31 @@ class PipeManager {
             this.randomValues.push(this.calculatePositions());
     }
 
+    /**
+     * Generates a random Y values within specific bounds of the canvas. The point that is generated is used as
+     * a base point for the pipes. An offset is applied to both pipes, upperPush and lowerPush, to put them in
+     * the proper positions.
+     */
     randomY() {
         const upperBounds = this.previousY - 175;
         const lowerBounds = this.previousY + 175;
         return parseInt(random(upperBounds > 150 ? upperBounds : 150, lowerBounds < 375 ? lowerBounds : 375), 10);
     }
 
+    /**
+     * Uses randomY() to generate a random location on the board and updates previousY so that the next value generated
+     * cannot be too far from the current value. An array of the upper and lower value are returned for the upper and lower pipes.
+     */
     calculatePositions() {
         let y = this.randomY();
         this.previousY = y;
         return [y + this.upperPush, y + this.lowerPush];
     }
 
+    /**
+     * Adds two pipes to the canvas with randomY values but a static x value. The x value is off the screen to the right
+     * which allows the game to push the pipes on to the player. This is more efficent then trying to push the player itself.
+     */
     addPipes() {
         const values = this.calculatePositions();
 
@@ -33,6 +46,11 @@ class PipeManager {
         this.pipes.push(new Pipe(400, values[1], this.image2));
     }
 
+    /**
+     * Updates the position of the pipes when they go off screen and checks for collisions
+     * with the bird (player).
+     * @param {Bird} bird used for bounds detection against the pipes 
+     */
     update(bird) {
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             this.pipes[i].x -= 3;
@@ -52,6 +70,9 @@ class PipeManager {
         }
     }
 
+    /**
+     * Renders all the pipes to the screen.
+     */
     render() {
         for (let i = 0; i < this.pipes.length; i++)
             this.pipes[i].render();

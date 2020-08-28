@@ -4,13 +4,21 @@ let bird;
 let pipeManager;
 let tick = 0;
 
+/**
+ * Used to create the game board and set initial values.
+ */
 function setup() {
   createCanvas(312, 624);
-  bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, [images.downflap, images.midflap, images.upflap]);
+  bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, 
+  [images.downflap, images.midflap, images.upflap]);
   pipeManager = new PipeManager(images.uppipe, images.downpipe);
   frameRate(60);
 }
 
+/**
+ * Draws and updates varibles. Normally an update method is used to update the state of
+ * variables but I have not found a way of implementing this that changes performance.
+ */
 function draw() {
   if (!playable)
     return;
@@ -38,6 +46,9 @@ function draw() {
 
 }
 
+/**
+ * Preloads images into the game
+ */
 function preload() {
   images.background = loadImage('assets/background.png');
   images.base = loadImage('assets/base.png');
@@ -48,12 +59,20 @@ function preload() {
   images.uppipe = loadImage('assets/uppipe.png');
 }
 
+/**
+ * Starts the game
+ */
 function startGame() {
   playable = true;
 
   hideMainElements(true);
 }
 
+/**
+ * Toggles screen elements. Used mainly when the player starts the game by pressing
+ * the start button.
+ * @param {boolean} display used to either show or hide screen elements
+ */
 function hideMainElements(display) {
   let normalDisplay = display ? 'none' : 'block';
   let oppositeDisplay = display ? 'block' : 'none';
@@ -67,6 +86,9 @@ function hideMainElements(display) {
   canvas.style.display = oppositeDisplay;
 }
 
+/**
+ * Checks for which key is being pressed.
+ */
 function keyPressed() {
   if (keyCode === 32) {
     bird.jump();

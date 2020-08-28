@@ -19,6 +19,10 @@ class Bird {
         this.bounds = new Bounds(this.x, this.y, this.width, this.height);
     }
 
+    /**
+     * Updates the index of the bird. The next time the bird is rendered to the screen
+     * the image will be different creating animation.
+     */
     animate() {
         if (this.tick % 10 != 0)
             return;
@@ -29,6 +33,11 @@ class Bird {
             this.index = 0;
     }
 
+    /**
+     * Rotate the bird based on an angle and render it to the screen.
+     * Push and pop must be used so that the rotation and translations that take
+     * place are relative to this function alone and do not interfere with the outside.
+     */
     rotateRender() { 
         push();
         imageMode(CENTER);
@@ -40,7 +49,14 @@ class Bird {
         
     }
 
+    /**
+     * Calculates the velocity of the bird using the formula V = gt + Vi where
+     * v = velocity, g = gravity, t = time, vi = initialVelocity
+     * 
+     * The bounds and animation cycle are also updated.
+     */
     update() {
+        // 17 acts as terminal velocity for the bird
         if (this.time < 17)
             this.time += 1;
             
@@ -55,10 +71,21 @@ class Bird {
         this.tick += 1;
     }
 
+    /**
+     * Changes the time into a negative value to simulate jumping as
+     * velocity will become positive by a huge margin and increase until
+     * it becomes positive again.
+     */
     jump() {
         this.time = -17;
     }
 
+    /**
+     * Calculates the angle the bird should be pointing at by normalizing
+     * the time between -1 and 1. This allows for the normalized value to be
+     * multiplied by an offset (-45) and create a bounded angle rotation,
+     * in this case [-45, +45].
+     */
     calculateAngle() {
         const normalizedData = this.time / -17;
         this.angle = normalizedData * -45;
