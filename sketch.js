@@ -1,5 +1,5 @@
 let playable = false;
-let images = {};
+const images = {};
 let font;
 let bird;
 let pipeManager;
@@ -30,8 +30,6 @@ function draw() {
   imageMode(CORNER);
   image(images.background, 0, 0, width);
   
-  bird.rotateRender();
-
   if (bird.playing && !bird.gameOver) {
     bird.update();
     pipeManager.update(bird);
@@ -45,6 +43,8 @@ function draw() {
     }
   }
   pipeManager.render();
+  bird.rotateRender();
+  
   image(images.base, 0, height - 112);
   stroke(255);
   text(frameRate().toString().substring(0, 2), 10, 20);
@@ -55,7 +55,7 @@ function draw() {
   stroke(0);
   strokeWeight(5);
   textSize(30);
-  let fontWidth = textWidth(pipeManager.score / 2);
+  const fontWidth = textWidth(pipeManager.score / 2);
   text(pipeManager.score / 2, (width - fontWidth) / 2, 100);
   pop();
 }
@@ -90,11 +90,11 @@ function startGame() {
  * @param {boolean} display used to either show or hide screen elements
  */
 function hideMainElements(display) {
-  let normalDisplay = display ? 'none' : 'block';
-  let oppositeDisplay = display ? 'block' : 'none';
+  const normalDisplay = display ? 'none' : 'block';
+  const oppositeDisplay = display ? 'block' : 'none';
 
-  let canvas = document.getElementById('defaultCanvas0');
-  let menuItems = document.getElementsByClassName('menu-screen');
+  const canvas = document.getElementById('defaultCanvas0');
+  const menuItems = document.getElementsByClassName('menu-screen');
 
   for (let i = 0; i < menuItems.length; i++) 
     menuItems[i].style.display = normalDisplay;

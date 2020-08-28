@@ -13,6 +13,7 @@ class Bird {
         this.gravity = 0.4;
         this.time = 0;
         this.initialVelocity = 0.3;
+        this.terminalVelocity = 17;
         this.tick = 0;
 
         this.playing = false;
@@ -57,23 +58,31 @@ class Bird {
      */
     update() {
         // 17 acts as terminal velocity for the bird
-        if (this.time < 17)
+        if (this.time < this.terminalVelocity)
             this.time += 1;
             
         this.velocity = this.gravity * this.time + this.initialVelocity;
         this.y += this.velocity;
         this.bounds.y = this.y;
 
-        this.calculateAngle();
-        this.animate();
+        if (!this.gameOver) {
+            this.calculateAngle();
+            this.animate();
+        }
         this.tick += 1;
 
         this.checkBoundaries();
     }
 
     checkBoundaries() {
-        if (this.y < 0 || this.y > 515 - this.height)
+        if (this.y < 0 || this.y > 515 - this.height) {
             this.gameOver = true;
+            this.angle = 90;
+            console.log("YES", this.angle);
+
+            this.rotateRender();
+            redraw();
+        }
     }
 
     /**
@@ -82,7 +91,7 @@ class Bird {
      * it becomes positive again.
      */
     jump() {
-        this.time = -17;
+        this.time = -this.terminalVelocity;
     }
 
     /**
@@ -92,7 +101,12 @@ class Bird {
      * in this case [-45, +45].
      */
     calculateAngle() {
-        const normalizedData = this.time / -17;
-        this.angle = normalizedData * -45;
+        const normalizedData = this.gameOver ? ((this.time / -this.terminalVelocity) / 2) + 0.5 : 
+                                                 this.time / -this.terminalVelocity;
+        this.angle = this.gameOver ? normalizedData * -135 + 90 : normalizedData * -45;
+        console.log('Normal Data:', normalizedData);
+        // this.angle = normalizedData * -135 + 90;
+
+        console.log('Angle:', this.angle);
     }
 }
