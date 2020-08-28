@@ -3,6 +3,7 @@ const images = {};
 let font;
 let bird;
 let pipeManager;
+let end;
 let tick = 0;
 
 /**
@@ -14,6 +15,7 @@ function setup() {
   bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, 
   [images.downflap, images.midflap, images.upflap]);
   pipeManager = new PipeManager(images.uppipe, images.downpipe);
+  end = new End([images.bronze, images.silver, images.gold, images.platinum, images.over, images.board, images.new]);
   // Limiting frame rate to 60 fps (about)
   frameRate(60);
 }
@@ -52,15 +54,20 @@ function draw() {
   stroke(255);
   text(frameRate().toString().substring(0, 2), 10, 20);
 
-  push();
-  textFont(font);
-  fill(255);
-  stroke(0);
-  strokeWeight(5);
-  textSize(30);
-  const fontWidth = textWidth(pipeManager.score / 2);
-  text(pipeManager.score / 2, (width - fontWidth) / 2, 100);
-  pop();
+  if (!bird.gameOver) {
+    push();
+    textFont(font);
+    fill(255);
+    stroke(0);
+    strokeWeight(5);
+    textSize(30);
+    const fontWidth = textWidth(pipeManager.score / 2);
+    text(pipeManager.score / 2, (width - fontWidth) / 2, 100);
+    pop();
+  }
+  else {
+    end.render(pipeManager.score / 2);
+  }
 }
 
 /**
