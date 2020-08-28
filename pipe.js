@@ -24,10 +24,6 @@ class Pipe {
      * Renders the pipe to the screen.
      */
     render() {
-        noFill();
-        stroke(0);
-        // rect(this.x, this.y, this.width, this.height);
-        rect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
         image(this.image, this.x, this.y, this.width, this.height);
     }
 }

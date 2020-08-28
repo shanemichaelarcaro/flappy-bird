@@ -39,9 +39,6 @@ class Bird {
      * place are relative to this function alone and do not interfere with the outside.
      */
     rotateRender() { 
-        noFill();
-        stroke(0);
-        rect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
         push();
         imageMode(CENTER);
         translate(this.x + this.width / 2, this.y + this.height / 2);
@@ -49,7 +46,6 @@ class Bird {
         rotate(this.angle);
         image(this.images[this.index], 0, 0, this.width, this.height);
         pop();
-        
     }
 
     /**
@@ -65,9 +61,7 @@ class Bird {
             
         this.velocity = this.gravity * this.time + this.initialVelocity;
         this.y += this.velocity;
-
         this.bounds.y = this.y;
-        this.bounds.update();
 
         this.calculateAngle();
         this.animate();

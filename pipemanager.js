@@ -52,16 +52,6 @@ class PipeManager {
      * @param {Bird} bird used for bounds detection against the pipes 
      */
     update(bounds) {
-        console.log(bounds);
-        // if (this.pipes.length > 0) {
-        //     console.log('RegularX:', this.pipes[0].x);
-        //     console.log('RegularY:', this.pipes[0].y);
-        //     console.log();
-        //     console.log('X:', this.pipes[0].bounds.x);
-        //     console.log('Y:', this.pipes[0].bounds.y);
-        //     console.log();
-        // }
-        
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             this.pipes[i].x -= 3;
             
@@ -71,13 +61,10 @@ class PipeManager {
                     const value = parseInt(random(this.randomValues.length), 10);
                     this.pipes[i].y = this.randomValues[value][0];
                     this.pipes[i + 1].y = this.randomValues[value][1];
-                    // this.pipes[i].y = values[0];
-                    // this.pipes[i + 1].y = values[1];
                 }
             }
             this.pipes[i].update(this.pipes[i].x, this.pipes[i].y);
-            if (bounds.intersects(this.pipes[i].bounds))
-                console.log("HIT!!! HIT!! HIT!!!!!!");
+            console.log(this.pipes[i].bounds.intersects(bounds));
         }
     }
 

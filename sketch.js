@@ -29,12 +29,12 @@ function draw() {
   imageMode(CORNER);
   image(images.background, 0, 0, width);
   
-
   bird.rotateRender();
 
   if (bird.playing) {
     bird.update();
     pipeManager.update(bird.bounds);
+
     if (pipeManager.pipes.length < 6) {
       tick += 1;
       if (tick % 60 == 0) {
