@@ -75,6 +75,16 @@ function preload() {
   images.downpipe = loadImage('assets/downpipe.png');
   images.uppipe = loadImage('assets/uppipe.png');
 
+
+  images.bronze = loadImage('/assets/bronze.png');
+  images.silver = loadImage('/assets/silver.png');
+  images.gold = loadImage('/assets/gold.png');
+  images.platinum = loadImage('/assets/platinum.png');
+  images.over = loadImage('/assets/over.png');
+  images.board = loadImage('/assets/board.png');
+  images.new = loadImage('/assets/new.png');
+
+
   font = loadFont('04B_19__.TTF');
 }
 
