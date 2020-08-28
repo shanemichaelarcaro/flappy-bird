@@ -16,6 +16,7 @@ class Bird {
         this.tick = 0;
 
         this.playing = false;
+        this.gameOver = false;
         this.bounds = new Bounds(this.x, this.y, this.width, this.height);
     }
 
@@ -66,6 +67,13 @@ class Bird {
         this.calculateAngle();
         this.animate();
         this.tick += 1;
+
+        this.checkBoundaries();
+    }
+
+    checkBoundaries() {
+        if (this.y < 0 || this.y > 515 - this.height)
+            this.gameOver = true;
     }
 
     /**

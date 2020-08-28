@@ -32,9 +32,9 @@ function draw() {
   
   bird.rotateRender();
 
-  if (bird.playing) {
+  if (bird.playing && !bird.gameOver) {
     bird.update();
-    pipeManager.update(bird.bounds);
+    pipeManager.update(bird);
 
     if (pipeManager.pipes.length < 6) {
       tick += 1;
@@ -42,9 +42,9 @@ function draw() {
         pipeManager.addPipes();
         tick = 0;
       }
+    }
   }
-    pipeManager.render();
-  }
+  pipeManager.render();
   image(images.base, 0, height - 112);
   stroke(255);
   text(frameRate().toString().substring(0, 2), 10, 20);

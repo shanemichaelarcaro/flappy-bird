@@ -52,7 +52,7 @@ class PipeManager {
      * with the bird (player).
      * @param {Bird} bird used for bounds detection against the pipes 
      */
-    update(bounds) {
+    update(bird) {
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             this.pipes[i].x -= 3;
             if (this.pipes[i].x >= 155 && this.pipes[i].x < 158)
@@ -69,6 +69,9 @@ class PipeManager {
             this.pipes[i].update(this.pipes[i].x, this.pipes[i].y);
 
             // Pipe Collision detection
+            if (this.pipes[i].bounds.intersects(bird.bounds))
+                bird.gameOver = true;
+
             // console.log(this.pipes[i].bounds.intersects(bounds));
         }
     }
