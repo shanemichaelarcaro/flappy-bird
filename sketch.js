@@ -2,30 +2,42 @@ let playable = false;
 let images = {};
 let bird;
 let testPipe;
+let pipeManager;
+let tick = 0;
 
 function setup() {
   createCanvas(312, 624);
   bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, [images.downflap, images.midflap, images.upflap]);
-  testPipe = new Pipe(125, 400, images.downpipe);
+  pipeManager = new PipeManager(images.uppipe, images.downpipe);
+
+  frameRate(60);
 }
 
 function draw() {
   if (!playable)
     return;
-
+  
   clear();
   imageMode(CORNER);
   image(images.background, 0, 0, width);
-  image(images.base, 0, height - 112);
-  testPipe.render();
-  bird.rotateRender();
-  if (bird.playing) {
-    bird.update();
-  }
   
 
-  console.log(bird.bounds.intersects(testPipe.bounds));
-  // console.log(bird.bounds.y);
+  bird.rotateRender();
+
+  if (bird.playing) {
+    bird.update();
+    pipeManager.update();
+  }
+
+  tick += 1;
+  if (tick % 60 == 0) {
+    pipeManager.addPipes();
+    tick = 0;
+  }
+
+  pipeManager.render();
+
+  image(images.base, 0, height - 112);
 
 }
 

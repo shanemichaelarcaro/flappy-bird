@@ -17,9 +17,6 @@ class Bird {
 
         this.playing = false;
         this.bounds = new Bounds(this.x, this.y, this.width, this.height);
-
-        console.log("Y", this.y);
-        console.log();
     }
 
     animate() {
@@ -33,7 +30,6 @@ class Bird {
     }
 
     rotateRender() { 
-        rect(this.bounds.x, this.bounds.y, this.bounds.width, this.bounds.height);
         push();
         imageMode(CENTER);
         translate(this.x + this.width / 2, this.y + this.height / 2);
@@ -49,7 +45,7 @@ class Bird {
             this.time += 1;
         this.velocity = this.gravity * this.time + this.initialVelocity;
         this.y += this.velocity;
-        
+
         this.bounds.y = this.y;
         this.bounds.update();
 
