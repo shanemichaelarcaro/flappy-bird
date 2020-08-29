@@ -12,6 +12,7 @@ class PipeManager {
         this.highscore = 0;
         this.newHighscore = false;
 
+
         this.randomValues = [];
         for (let i = 0; i < 200; i++)
             this.randomValues.push(this.calculatePositions());
@@ -57,7 +58,7 @@ class PipeManager {
     update(bird) {
         for (let i = this.pipes.length - 1; i >= 0; i--) {
             this.pipes[i].x -= 3;
-            if (this.pipes[i].x >= 155 && this.pipes[i].x < 158) {
+            if (i % 2 == 0 && this.pipes[i].x >= 155 && this.pipes[i].x < 158) {
                 this.score += 1;
                 if (this.score > this.highscore) {
                     this.highscore = this.score;

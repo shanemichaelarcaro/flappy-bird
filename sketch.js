@@ -8,8 +8,6 @@ let end;
 let tick = 0;
 let resetButton;
 let menu = false;
-let die;
-let score;
 const baseLocation = {base1: 0, base2: 336};
 
 /**
@@ -19,7 +17,7 @@ p5.disableFriendlyErrors = true;
 function setup() {
   let canvas = createCanvas(312, 624);
   bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, 
-  [images.downflap, images.midflap, images.upflap], score);
+  [images.downflap, images.midflap, images.upflap]);
   pipeManager = new PipeManager(images.uppipe, images.downpipe);
   end = new End([images.bronze, images.silver, images.gold, images.platinum, images.over, images.board, images.new]);
   // Limiting frame rate to 60 fps (about)
@@ -81,10 +79,10 @@ function draw() {
 
   if (!bird.gameOver) {
     const fontWeight = textWidth(pipeManager.score / 2);
-    renderText(pipeManager.score / 2, (width - fontWeight) / 2, 100, 30, 5);
+    renderText(pipeManager.score, (width - fontWeight) / 2, 100, 30, 5);
   }
   else {
-    end.render(pipeManager.score / 2);
+    end.render(pipeManager.score);
     end.update();
 
     // Only run this code when button is undefined (runs it once)
@@ -96,7 +94,7 @@ function draw() {
       resetButton.mousePressed(resetGame);
     }
     const fontWeight = textWidth(pipeManager.highscore / 2);
-    renderText(pipeManager.highscore / 2, end.x + 189 - fontWeight / 2, 310, 20, 5);
+    renderText(pipeManager.highscore, end.x + 189 - fontWeight / 2, 310, 20, 5);
 
     // If new highscore is detected render new
     if (pipeManager.newHighscore)
@@ -126,11 +124,7 @@ function preload() {
   images.new = loadImage('assets/new.png');
   images.start = loadImage('assets/start.png');
 
-
   font = loadFont('04B_19__.TTF');
-
-  die = loadSound('sounds/die.mp3');
-  score = loadSound('sounds/point.mp3');
 }
 
 /**
