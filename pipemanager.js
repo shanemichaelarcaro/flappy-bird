@@ -64,10 +64,12 @@ class PipeManager {
                     this.newHighscore = true;
                 }
             }
-            
+            /**
+             * Reset the pipes if they go off screen
+             */
             if (this.pipes[i].x < -50) {
                 this.pipes[i].x = 500;
-                if (i % 2 == 0) {
+                if (i % 2 === 0) {
                     const value = parseInt(random(this.randomValues.length), 10);
                     this.pipes[i].y = this.randomValues[value][0];
                     this.pipes[i + 1].y = this.randomValues[value][1];
@@ -78,8 +80,6 @@ class PipeManager {
             // Pipe Collision detection
             if (this.pipes[i].bounds.intersects(bird.bounds))
                 bird.gameOver = true;
-
-            // console.log(this.pipes[i].bounds.intersects(bounds));
         }
     }
 

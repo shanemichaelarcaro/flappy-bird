@@ -7,6 +7,7 @@ let end;
 let tick = 0;
 let resetButton;
 let menu = false;
+const baseLocation = {base1: 0, base2: 336};
 
 /**
  * Used to create the game board and set initial values.
@@ -39,10 +40,10 @@ function draw() {
 
     if (!bird.gameOver) {
       pipeManager.update(bird);
-
+      updateBase();
       if (pipeManager.pipes.length < 6) {
         tick += 1;
-        if (tick % 60 == 0) {
+        if (tick % 60 === 0) {
           pipeManager.addPipes();
           tick = 0;
         }
@@ -52,7 +53,11 @@ function draw() {
   pipeManager.render();
   bird.rotateRender();
 
-  image(images.base, 0, height - 112);
+  // Render the bases
+  image(images.base, baseLocation.base1, height - 112);
+  image(images.base, baseLocation.base2, height - 112);
+
+  // Render fps
   stroke(255);
   text(frameRate().toString().substring(0, 2), 10, 20);
 
@@ -123,6 +128,16 @@ function renderText(string, x, y, size, weight) {
   textSize(size);
   text(string, x, y);
   pop();
+}
+
+function updateBase() {
+  baseLocation.base1 -= 3;
+  baseLocation.base2 -= 3;
+
+  if (baseLocation.base1 === -336)
+    baseLocation.base1 = 336;
+  if (baseLocation.base2 === -336)
+    baseLocation.base2 = 336;
 }
 
 /**
