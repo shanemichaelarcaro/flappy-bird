@@ -8,6 +8,8 @@ let end;
 let tick = 0;
 let resetButton;
 let menu = false;
+let die;
+let score;
 const baseLocation = {base1: 0, base2: 336};
 
 /**
@@ -15,9 +17,9 @@ const baseLocation = {base1: 0, base2: 336};
  */
 p5.disableFriendlyErrors = true;
 function setup() {
-  createCanvas(312, 624);
+  let canvas = createCanvas(312, 624);
   bird = new Bird((width - images.downflap.width) / 2, (height - images.downflap.height) / 2, 
-  [images.downflap, images.midflap, images.upflap]);
+  [images.downflap, images.midflap, images.upflap], score);
   pipeManager = new PipeManager(images.uppipe, images.downpipe);
   end = new End([images.bronze, images.silver, images.gold, images.platinum, images.over, images.board, images.new]);
   // Limiting frame rate to 60 fps (about)
@@ -88,8 +90,9 @@ function draw() {
     // Only run this code when button is undefined (runs it once)
     if (resetButton == undefined) {
       resetButton = createImg('assets/start.png');
-      resetButton.position(495, 500);
+      // resetButton.position(880, 500);
       resetButton.size(100, 100);
+      resetButton.position((window.innerWidth - resetButton.size().x) / 2, 500);
       resetButton.mousePressed(resetGame);
     }
     const fontWeight = textWidth(pipeManager.highscore / 2);
@@ -125,6 +128,9 @@ function preload() {
 
 
   font = loadFont('04B_19__.TTF');
+
+  die = loadSound('sounds/die.mp3');
+  score = loadSound('sounds/point.mp3');
 }
 
 /**
