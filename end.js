@@ -29,7 +29,7 @@ class End {
         strokeWeight(5);
         textSize(20);
         const fontWidth = textWidth(score);
-        text(score, this.x + 178 + fontWidth / 2, 270);
+        text(score, this.x + 190 - fontWidth / 2, 270);
         pop();
 
         if (medal != undefined)

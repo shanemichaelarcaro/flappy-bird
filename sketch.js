@@ -77,11 +77,11 @@ function draw() {
       resetButton.mousePressed(resetGame);
     }
     const fontWeight = textWidth(pipeManager.highscore / 2);
-    renderText(pipeManager.highscore / 2, end.x + 179 + fontWeight / 2, 310, 20, 5);
+    renderText(pipeManager.highscore / 2, end.x + 189 - fontWeight / 2, 310, 20, 5);
 
     // If new highscore is detected render new
     if (pipeManager.newHighscore)
-      image(images.new, end.x + 140, 295, 32, 14);
+      image(images.new, end.x + 130, 295, 32, 14);
   }
 }
 
@@ -158,6 +158,7 @@ function resetGame() {
   bird.gameOver = false;
   bird.playing = false;
   bird.angle = 0;
+  bird.index = 0;
   end.x = -97;
   resetButton.remove();
   resetButton = undefined;
