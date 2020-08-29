@@ -14,13 +14,12 @@
 
   <body>
     <!-- <div class="menu"> -->
-      <div class="hiding-container hiding-container1 menu-screen"></div>
       <h1 class="menu-screen">Flappy Bird</h1>
       <img class="bird menu-screen" src="./assets/midflap.png" alt="flappy-bird">
       <div class="background">
-        <img class="menu-screen" src="./assets/background.png" alt="flappy-background">
+        <img class="menu-screen img1" src="./assets/background.png" alt="flappy-background">
         <div class="base">
-          <img class="menu-screen" id='base-image' src="./assets/base.png" alt="flappy-base">
+          <img class="menu-screen img2" id='base-image' src="./assets/base.png" alt="flappy-base">
         </div>
       </div>
     <!-- </div> -->
@@ -28,7 +27,7 @@
     
     <div class="buttons" id="menu-buttons">
       <button class="menu-screen" onclick="startGame()">Start</button>
-      <button class="menu-screen">About</button> 
+      <button class="menu-screen" onclick="aboutMe()">About</button> 
     </div>
     <div class="hiding-container hiding-container2"></div>
     <script src="sketch.js"></script>

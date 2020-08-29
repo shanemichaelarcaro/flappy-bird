@@ -70,6 +70,16 @@ h1 {
   
 }
 
+.img1 {
+  border: 1px solid black;
+  border-bottom: 0;
+}
+
+.img2 {
+  border: 1px solid black;
+  border-top: 0;
+}
+
 .rectangle {
   display: absolute;
   background: blue;

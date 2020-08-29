@@ -1,4 +1,5 @@
 let playable = false;
+let about = false;
 const images = {};
 let font;
 let bird;
@@ -28,13 +29,28 @@ function setup() {
  * variables but I have not found a way of implementing this that changes performance.
  */
 function draw() {
+  if (about) {
+    clear();
+    imageMode(CORNER);
+    image(images.background, 0, 0, width);
+    image(images.base, 0, height - 112);
+
+    push();
+
+    renderText('My name is Shane Arcaro', 0, 100, 18, 3, true);
+    renderText('I made this for fun', 0, 140, 18, 3, true);
+    renderText('Before college starts', 0, 180, 18, 3, true);
+    renderText('I hope you enjoy', 0, 400, 18, 3, true);
+    renderText('Press backspace', 0, 580, 18, 3, true);
+    pop();
+  }
   if (!playable)
     return;
   
   clear();
   imageMode(CORNER);
   image(images.background, 0, 0, width);
-  
+
   if (bird.playing) {
     bird.update();
 
@@ -119,14 +135,19 @@ function preload() {
  * @param {integer} size the size of the text
  * @param {integer} weight the stroke weight of the text
  */
-function renderText(string, x, y, size, weight) {
+function renderText(string, x, y, size, weight, center) {
   push();
   textFont(font);
   fill(255);
   stroke(0);
   strokeWeight(weight);
   textSize(size);
-  text(string, x, y);
+  if (!center)
+    text(string, x, y);
+  else {
+    const xLocation = (width - textWidth(string)) / 2;
+    text(string, xLocation, y);
+  }
   pop();
 }
 
@@ -167,6 +188,11 @@ function resetGame() {
   pipeManager.newHighscore = false;
 }
 
+function aboutMe() {
+  about = true;
+  hideMainElements(true);
+}
+
 /**
  * Toggles screen elements. Used mainly when the player starts the game by pressing
  * the start button.
@@ -190,6 +216,12 @@ function hideMainElements(display) {
  * Checks for which key is being pressed.
  */
 function keyPressed() {
+  if (keyCode == 8 && about) {
+    about = false;
+    playable = false;
+    hideMainElements(false);
+
+  }
   if (keyCode === 32) {
     if (menu) {
       if (!bird.gameOver)
