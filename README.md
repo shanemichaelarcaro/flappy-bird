@@ -13,5 +13,5 @@ Project was created using the P5.js library and was intended to be a clone of th
 * Collisions created between bird, pipes, and bounds
 * Moving background
 * Score and highscore tracker
-* Origian medal system (B:10 S:20 G:30 P:40+)
+* Original medal system (B:10 S:20 G:30 P:40+)
 * Reset and About screens
